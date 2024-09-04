@@ -50,8 +50,10 @@ class Ad(models.Model):
         verbose_name='фото товара',
         help_text='Загрузите фото товара'
     )
-    created_at = models.DateField(
-        models.DateTimeField(default=timezone.now, verbose_name='дата и время создания')
+    created_at = models.DateTimeField(
+        default=timezone.now,
+        **NULLABLE,
+        verbose_name='дата и время создания'
     )
 
     class Meta:
@@ -90,8 +92,10 @@ class Comment(models.Model):
         **NULLABLE,
         verbose_name='объявление, под которым оставлен отзыв'
     )
-    created_at = models.DateField(
-        models.DateTimeField(default=timezone.now, verbose_name='дата и время создания')
+    created_at = models.DateTimeField(
+        default=timezone.now,
+        **NULLABLE,
+        verbose_name='дата и время создания'
     )
 
     def __str__(self):

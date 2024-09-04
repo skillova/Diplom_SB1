@@ -1,8 +1,8 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Ad
-from .serializers import AdDetailSerializer
+from .models import Ad, Comment
+from .serializers import AdDetailSerializer, CommentSerializer, AdSerializer
 
 
 class AdCreateAPIView(generics.CreateAPIView):
@@ -11,10 +11,51 @@ class AdCreateAPIView(generics.CreateAPIView):
     """
     serializer_class = AdDetailSerializer
     queryset = Ad.objects.all()
-    permission_classes = [IsAuthenticated]
 
-    def perform_create(self, serializer):
-        """
-        Метод для автоматической привязки объявления к создателю.
-        """
-        serializer.save(author=self.request.user)
+
+class AdListAPIView(generics.ListAPIView):
+    """
+    Контроллер для просмотра списка всех объявлений
+    """
+    serializer_class = AdSerializer
+    queryset = Ad.objects.all()
+
+
+class AdRetrieveAPIView(generics.RetrieveAPIView):
+    """
+    Контроллер для просмотра объявления
+    """
+    serializer_class = AdDetailSerializer
+    queryset = Ad.objects.all()
+
+
+class AdUpdateAPIView(generics.UpdateAPIView):
+    """
+    Контроллер для изменения объявления
+    """
+    serializer_class = AdSerializer
+    queryset = Ad.objects.all()
+
+
+class AdDestroyAPIView(generics.DestroyAPIView):
+    """
+    Контроллер для удаления объявления
+    """
+    serializer_class = AdSerializer
+    queryset = Ad.objects.all()
+
+
+class MyAdListAPIView(generics.ListAPIView):
+    """
+    Контроллер для просмотра списка объявлений пользователя
+    """
+    serializer_class = AdSerializer
+    queryset = Ad.objects.all()
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    """
+    Вьюсет для модели отзыва
+    """
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
