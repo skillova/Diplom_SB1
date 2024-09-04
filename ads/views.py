@@ -1,6 +1,8 @@
+from django_filters.rest_framework.backends import DjangoFilterBackend
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 
+from .filters import AdFilter
 from .models import Ad, Comment
 from .serializers import AdDetailSerializer, CommentSerializer, AdSerializer
 
@@ -19,6 +21,8 @@ class AdListAPIView(generics.ListAPIView):
     """
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = AdFilter
 
 
 class AdRetrieveAPIView(generics.RetrieveAPIView):
