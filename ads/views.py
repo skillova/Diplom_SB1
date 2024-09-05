@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework.backends import DjangoFilterBackend
 from rest_framework import generics, viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
+from users.permissions import IsAdmin, IsOwner
 from .filters import AdFilter
 from .models import Ad, Comment
 from .serializers import AdDetailSerializer, CommentSerializer, AdSerializer
@@ -14,6 +15,7 @@ class AdCreateAPIView(generics.CreateAPIView):
     """
     serializer_class = AdDetailSerializer
     queryset = Ad.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         """
@@ -32,6 +34,7 @@ class AdListAPIView(generics.ListAPIView):
     queryset = Ad.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_class = AdFilter
+    permission_classes = [AllowAny]
 
 
 class AdRetrieveAPIView(generics.RetrieveAPIView):
@@ -40,6 +43,7 @@ class AdRetrieveAPIView(generics.RetrieveAPIView):
     """
     serializer_class = AdDetailSerializer
     queryset = Ad.objects.all()
+    permission_classes = [IsAuthenticated]
 
 
 class AdUpdateAPIView(generics.UpdateAPIView):
@@ -48,6 +52,7 @@ class AdUpdateAPIView(generics.UpdateAPIView):
     """
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
+    permission_classes = [IsAuthenticated, IsOwner | IsAdmin]
 
 
 class AdDestroyAPIView(generics.DestroyAPIView):
@@ -64,6 +69,7 @@ class MyAdListAPIView(generics.ListAPIView):
     """
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
         """
@@ -99,3 +105,14 @@ class CommentViewSet(viewsets.ModelViewSet):
         comment_list = ad.comment_ad.all()
         return comment_list
 
+    def get_permissions(self):
+        """
+        Права на комментарии:
+        - авторизованный пользователь - создание / просмотр
+        - владелец и админ - редактирование / удаление
+        """
+        if self.action in ["create", "list", "retrieve"]:
+            permission_classes = IsAuthenticated
+        elif self.action in ["update", "partial_update", "destroy"]:
+            permission_classes = (IsAuthenticated, IsAdmin | IsOwner)
+        return super().get_permissions()
