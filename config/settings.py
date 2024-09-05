@@ -51,6 +51,8 @@ INSTALLED_APPS = [
 
     'django_filters',
 
+    'corsheaders',
+
     'users',
     'ads',
 ]
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -172,3 +175,10 @@ DJOSER = {
     "PASSWORD_RESET_CONFIRM_URL": "/password/reset/confirm/{uid}/{token}",
     "LOGIN_FIELD": "email",
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',  # Конкретные источники, доступ с которых для кросс-доменных запросов разрешён.
+]
+CORS_ALLOW_ALL_ORIGINS = False  # Разрешает запросы из всех источников.
+# CORS_ALLOW_CREDENTIALS = True  # Использование cookies и заголовков для управления учётными данными.
+# CORS_ALLOWED_ORIGIN_REGEXES = False  # Запросы с источников, соответствующих указанным регулярным выражениям.
