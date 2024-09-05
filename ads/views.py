@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from users.permissions import IsAdmin, IsOwner
 from .filters import AdFilter
 from .models import Ad, Comment
+from .paginators import AdPaginator
 from .serializers import AdDetailSerializer, CommentSerializer, AdSerializer
 
 
@@ -35,6 +36,7 @@ class AdListAPIView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = AdFilter
     permission_classes = [AllowAny]
+    pagination_class = AdPaginator
 
 
 class AdRetrieveAPIView(generics.RetrieveAPIView):
