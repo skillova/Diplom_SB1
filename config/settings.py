@@ -182,3 +182,13 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = False  # Разрешает запросы из всех источников.
 # CORS_ALLOW_CREDENTIALS = True  # Использование cookies и заголовков для управления учётными данными.
 # CORS_ALLOWED_ORIGIN_REGEXES = False  # Запросы с источников, соответствующих указанным регулярным выражениям.
+
+# Настройки email yandex.ru.
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
