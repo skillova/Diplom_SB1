@@ -16,6 +16,7 @@ django-filter = "^24.3"
 djangorestframework-simplejwt = "^5.3.1"
 djoser = "^2.2.3"
 django-cors-headers = "^4.4.0"
+coverage = "^7.6.1"
 
 
 [build-system]
