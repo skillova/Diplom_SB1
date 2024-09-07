@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-bn@lh!60a7dx4@_)0vhl^mo5fw@lc8ag$_$ix0i*#7^y#w=gw(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),  # Название БД
         'USER': os.getenv('POSTGRES_USER'),  # Пользователь для подключения
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),  # Пароль для этого пользователя
-        'HOST': os.getenv('POSTGRES_HOST'),  # Адрес, на котором развернут сервер БД
+        'HOST': 'db',  # Адрес, на котором развернут сервер БД
         'PORT': os.getenv('POSTGRES_PORT'),  # Порт, на котором работает сервер БД
     }
 }
