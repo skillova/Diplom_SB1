@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'drf_yasg',
+
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
@@ -98,7 +100,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),  # Название БД
         'USER': os.getenv('POSTGRES_USER'),  # Пользователь для подключения
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),  # Пароль для этого пользователя
-        'HOST': 'db',  # Адрес, на котором развернут сервер БД
+        'HOST': os.getenv('POSTGRES_HOST'),  # Адрес, на котором развернут сервер БД
         'PORT': os.getenv('POSTGRES_PORT'),  # Порт, на котором работает сервер БД
     }
 }

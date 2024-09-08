@@ -17,6 +17,10 @@ djangorestframework-simplejwt = "^5.3.1"
 djoser = "^2.2.3"
 django-cors-headers = "^4.4.0"
 coverage = "^7.6.1"
+drf-yasg = "^1.21.7"
+requests = "^2.32.3"
+pip = "^24.2"
+setuptools = "^74.1.2"
 
 
 [build-system]
