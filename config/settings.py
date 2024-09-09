@@ -160,11 +160,11 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-            'rest_framework.authentication.TokenAuthentication',
-            'rest_framework.authentication.BasicAuthentication',
-            'rest_framework.authentication.SessionAuthentication',
             'rest_framework_simplejwt.authentication.JWTAuthentication',
-        )
+        ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
 
 SIMPLE_JWT = {
@@ -172,11 +172,11 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-DJOSER = {
-    "SERIALIZERS": {"user_create": "users.serializers.UserRegistrationSerializer"},
-    "PASSWORD_RESET_CONFIRM_URL": "/password/reset/confirm/{uid}/{token}",
-    "LOGIN_FIELD": "email",
-}
+# DJOSER = {
+#     "SERIALIZERS": {"user_create": "users.serializers.UserRegistrationSerializer"},
+#     "PASSWORD_RESET_CONFIRM_URL": "/password/reset/confirm/{uid}/{token}",
+#     "LOGIN_FIELD": "email",
+# }
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',  # Конкретные источники, доступ с которых для кросс-доменных запросов разрешён.
@@ -184,6 +184,19 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = False  # Разрешает запросы из всех источников.
 # CORS_ALLOW_CREDENTIALS = True  # Использование cookies и заголовков для управления учётными данными.
 # CORS_ALLOWED_ORIGIN_REGEXES = False  # Запросы с источников, соответствующих указанным регулярным выражениям.
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Basic': {
+            'type': 'basic'
+      },
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
+}
 
 # Настройки email yandex.ru.
 EMAIL_HOST = 'smtp.yandex.ru'

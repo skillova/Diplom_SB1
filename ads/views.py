@@ -35,7 +35,7 @@ class AdListAPIView(generics.ListAPIView):
     queryset = Ad.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_class = AdFilter
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
     pagination_class = AdPaginator
 
 
@@ -45,7 +45,7 @@ class AdRetrieveAPIView(generics.RetrieveAPIView):
     """
     serializer_class = AdDetailSerializer
     queryset = Ad.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
 
 
 class AdUpdateAPIView(generics.UpdateAPIView):
@@ -54,7 +54,7 @@ class AdUpdateAPIView(generics.UpdateAPIView):
     """
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
-    permission_classes = [IsAuthenticated, IsOwner | IsAdmin]
+    permission_classes = (IsAuthenticated, IsOwner | IsAdmin,)
 
 
 class AdDestroyAPIView(generics.DestroyAPIView):
@@ -63,6 +63,7 @@ class AdDestroyAPIView(generics.DestroyAPIView):
     """
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
+    permission_classes = (IsAuthenticated, IsOwner | IsAdmin,)
 
 
 class MyAdListAPIView(generics.ListAPIView):
@@ -71,7 +72,7 @@ class MyAdListAPIView(generics.ListAPIView):
     """
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = (IsAuthenticated, IsOwner,)
 
     def get_queryset(self):
         """
@@ -114,7 +115,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         - владелец и админ - редактирование / удаление
         """
         if self.action in ["create", "list", "retrieve"]:
-            permission_classes = IsAuthenticated
+            self.permission_classes = IsAuthenticated
         elif self.action in ["update", "partial_update", "destroy"]:
-            permission_classes = (IsAuthenticated, IsAdmin | IsOwner)
+            self.permission_classes = (IsAuthenticated, IsAdmin | IsOwner,)
         return super().get_permissions()
