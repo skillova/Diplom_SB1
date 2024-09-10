@@ -1,12 +1,9 @@
-## Диплом: Доска объявлений SB1 ##
-Теги:
+<h2>Диплом: Доска объявлений SB1<h2/>
 
-![img_2.png](img_2.png)
-
-Установка
--
-- клонировать проект
-- выйти в виртуальное окружение poetry\
+***
+<h3>Установка<h3/>
+- **скачать проект в локальный репозиторий**
+- войти в виртуальное окружение poetry\
 poetry shell
 - установить зависимости\
 poetry install
@@ -15,52 +12,7 @@ CREATE DATABASE имя_БД
 - заполнить файл .env по образцу env_example
 - выполнить миграции\
 python manage.py migrate
-
-URL
--
-- список профилей пользователей\
-method: GET\
-/api/users/djoser/users/
-
-
-- регистрация пользователя\
-method: POST\
-/api/users/djoser/users/
-
-
-- просмотр и изменение пользователя (user-свой, admin-все)\
-method: GET, PATCH, DELETE\
-/api/users/djoser/users/{id}/
-
-
-- изменения пароля пользователя\
-method: POST\
-/api/users/djoser/users/set_password/
-
-
-- сброса пароля, ссылка на email\
-method: POST\
-/api/users/djoser/users/reset_password/
-
-
-- создать объявление\
-method: POST\
-/api/ads/ad_create/
-
-
-- список объявлений\
-method: GET\
-/api/ads/mylist/
-
-
-- изменить объявление\
-method: PATCH\
-/api/ads/<pk>/update/
-
-
-- изменить объявление\
-method: DELETE\
-/api/ads/<pk>/delete/
+***
 
 **Права пользователей.**
 
@@ -87,6 +39,10 @@ method: DELETE\
   docker-compose build
   - Запуск контейнеров\
   docker-compose up
+
+**API Documentation**
+
+/docs/
 
 
 
