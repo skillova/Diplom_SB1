@@ -115,7 +115,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         - владелец и админ - редактирование / удаление
         """
         if self.action in ["create", "list", "retrieve"]:
-            self.permission_classes = IsAuthenticated
+            permission_classes = (IsAuthenticated,)
         elif self.action in ["update", "partial_update", "destroy"]:
-            self.permission_classes = (IsAuthenticated, IsAdmin | IsOwner,)
-        return super().get_permissions()
+            permission_classes = (IsAuthenticated, IsAdmin | IsOwner,)
+        return [permission() for permission in permission_classes]
