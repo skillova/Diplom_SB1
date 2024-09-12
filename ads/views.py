@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404
-from django_filters.rest_framework.backends import DjangoFilterBackend
 from rest_framework import generics, viewsets
+from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from users.permissions import IsAdmin, IsOwner
-from .filters import AdFilter
 from .models import Ad, Comment
 from .paginators import AdPaginator
 from .serializers import AdDetailSerializer, CommentSerializer, AdSerializer
@@ -33,8 +32,8 @@ class AdListAPIView(generics.ListAPIView):
     """
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filterset_class = AdFilter
+    filter_backends = (SearchFilter,)
+    search_fields = ("title", "description",)
     permission_classes = (AllowAny,)
     pagination_class = AdPaginator
 

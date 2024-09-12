@@ -170,12 +170,6 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-# DJOSER = {
-#     "SERIALIZERS": {"user_create": "users.serializers.UserRegistrationSerializer"},
-#     "PASSWORD_RESET_CONFIRM_URL": "/password/reset/confirm/{uid}/{token}",
-#     "LOGIN_FIELD": "email",
-# }
-
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',  # Конкретные источники, доступ с которых для кросс-доменных запросов разрешён.
 ]
